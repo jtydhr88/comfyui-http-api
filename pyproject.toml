@@ -1,7 +1,7 @@
 [project]
 name = "comfyui_http_api"
 description = "A collection of custom nodes for interacting with ComfyUI's internal HTTP APIs, such as fetching files from workflows."
-version = "0.0.1"
+version = "0.0.2"
 license = {file = "LICENSE"}
 dependencies = []
 
