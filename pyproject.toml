@@ -1,0 +1,15 @@
+[project]
+name = "comfyui_http_api"
+description = "ComfyUI HTTP API nodes"
+version = "0.0.1"
+license = {file = "LICENSE"}
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/jtydhr88/ComfyUI-http-api"
+#  Used by Comfy Registry https://comfyregistry.org
+[tool.comfy]
+PublisherId = "jtydhr88"
+DisplayName = "ComfyUI HTTP Api"
+Icon = ""
+includes = ['js']

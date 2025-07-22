@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "vite": "^6.3.5",
+    "@comfyorg/comfyui-frontend-types": "^1.24.1"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}
