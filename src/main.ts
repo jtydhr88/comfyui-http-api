@@ -21,10 +21,27 @@ comfyApp.registerExtension({
       filenameValue: string
     ) => {
       try {
+        let actualSubfolder = subfolderValue;
+        let actualFilename = filenameValue;
+
+        const lastSlashIndex = filenameValue.lastIndexOf('/');
+        if (lastSlashIndex !== -1) {
+          const filenamePath = filenameValue.substring(0, lastSlashIndex);
+          actualFilename = filenameValue.substring(lastSlashIndex + 1);
+
+          if (subfolderValue && subfolderValue.trim() !== '') {
+            actualSubfolder = subfolderValue + '/' + filenamePath;
+          } else {
+            actualSubfolder = filenamePath;
+          }
+        }
+
+        actualSubfolder = actualSubfolder.replace(/\/+/g, '/').replace(/^\/|\/$/g, '');
+
         const params = [
-          'filename=' + encodeURIComponent(filenameValue),
+          'filename=' + encodeURIComponent(actualFilename),
           'type=' + encodeURIComponent(typeValue),
-          'subfolder=' + encodeURIComponent(subfolderValue),
+          'subfolder=' + encodeURIComponent(actualSubfolder),
           app.getRandParam().substring(1)
         ].join('&')
 
@@ -39,7 +56,9 @@ comfyApp.registerExtension({
         }
 
         const blob = await response.blob()
-        const downloadFilename = filenameValue
+        const downloadFilename = filenameValue.includes('/') ?
+          filenameValue.replace(/\//g, '_') :
+          filenameValue;
 
         const url = window.URL.createObjectURL(blob)
         const a = document.createElement('a')

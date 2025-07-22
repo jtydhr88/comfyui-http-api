@@ -1,37 +1,47 @@
-import { app as h } from "../../../scripts/app.js";
-import { api as v } from "../../../scripts/api.js";
-const R = h;
-R.registerExtension({
+import { app as g } from "../../../scripts/app.js";
+import { api as I } from "../../../scripts/api.js";
+const F = g;
+F.registerExtension({
   name: "Comfy.FetchApi",
-  async nodeCreated(o) {
+  async nodeCreated(n) {
     var m, b, w;
-    if (o.constructor.comfyClass !== "FetchApi") return;
-    const f = o.onExecuted, p = async (e, i, a) => {
+    if (n.constructor.comfyClass !== "FetchApi") return;
+    const f = n.onExecuted, u = async (e, a, t) => {
       try {
-        const d = `/view?${[
-          "filename=" + encodeURIComponent(a),
+        let o = a, l = t;
+        const c = t.lastIndexOf("/");
+        if (c !== -1) {
+          const U = t.substring(0, c);
+          l = t.substring(c + 1), a && a.trim() !== "" ? o = a + "/" + U : o = U;
+        }
+        o = o.replace(/\/+/g, "/").replace(/^\/|\/$/g, "");
+        const v = `/view?${[
+          "filename=" + encodeURIComponent(l),
           "type=" + encodeURIComponent(e),
-          "subfolder=" + encodeURIComponent(i),
-          h.getRandParam().substring(1)
-        ].join("&")}`, t = await v.fetchApi(d);
-        if (!t.ok)
-          return console.error(t), console.error("Unable to fetch file"), alert("Unable to fetch file"), !1;
-        const u = await t.blob(), U = a, y = window.URL.createObjectURL(u), n = document.createElement("a");
-        return n.style.display = "none", n.href = y, n.download = U, document.body.appendChild(n), n.click(), document.body.removeChild(n), window.URL.revokeObjectURL(y), !0;
-      } catch (l) {
-        return console.error(l), console.error("Unable to fetch file"), alert("Unable to fetch file"), !1;
+          "subfolder=" + encodeURIComponent(o),
+          g.getRandParam().substring(1)
+        ].join("&")}`, p = await I.fetchApi(v);
+        if (!p.ok)
+          return console.error(p), console.error("Unable to fetch file"), alert("Unable to fetch file"), !1;
+        const R = await p.blob(), C = t.includes("/") ? t.replace(/\//g, "_") : (
+          // 将路径分隔符替换为下划线
+          t
+        ), y = window.URL.createObjectURL(R), r = document.createElement("a");
+        return r.style.display = "none", r.href = y, r.download = C, document.body.appendChild(r), r.click(), document.body.removeChild(r), window.URL.revokeObjectURL(y), !0;
+      } catch (o) {
+        return console.error(o), console.error("Unable to fetch file"), alert("Unable to fetch file"), !1;
       }
-    }, r = (m = o.widgets) == null ? void 0 : m.find((e) => e.name === "type"), c = (b = o.widgets) == null ? void 0 : b.find((e) => e.name === "subfolder"), s = (w = o.widgets) == null ? void 0 : w.find((e) => e.name === "filename");
-    o.onExecuted = function(e) {
-      var t;
+    }, s = (m = n.widgets) == null ? void 0 : m.find((e) => e.name === "type"), i = (b = n.widgets) == null ? void 0 : b.find((e) => e.name === "subfolder"), d = (w = n.widgets) == null ? void 0 : w.find((e) => e.name === "filename");
+    n.onExecuted = function(e) {
+      var c;
       f == null || f.apply(this, arguments);
-      const i = e.result[0], a = e.result[1], l = e.result[2], d = (t = o.widgets) == null ? void 0 : t.find((u) => u.name === "auto_download");
-      r && c && s && (r.value = i, c.value = a, s.value = l, d && d.value && p(i, a, l));
-    }, o.addWidget("button", "download", "download", async () => {
-      r && c && s ? await p(
-        r.value,
-        c.value,
-        s.value
+      const a = e.result[0], t = e.result[1], o = e.result[2], l = (c = n.widgets) == null ? void 0 : c.find((h) => h.name === "auto_download");
+      s && i && d && (s.value = a, i.value = t, d.value = o, l && l.value && u(a, t, o));
+    }, n.addWidget("button", "download", "download", async () => {
+      s && i && d ? await u(
+        s.value,
+        i.value,
+        d.value
       ) : (console.error("Unable to fetch file"), alert("Unable to fetch file"));
     });
   }
