@@ -13,7 +13,7 @@ A collection of custom nodes for interacting with ComfyUI's internal HTTP APIs, 
 
 ## Installation
 
-### Method 1: Via ComfyUI Manager (Recommended)
+### Method 1: Via ComfyUI Manager
 
 1. Search for "ComfyUI HTTP API" in ComfyUI Manager
 2. Click Install
