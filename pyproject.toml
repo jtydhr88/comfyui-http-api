@@ -1,6 +1,6 @@
 [project]
 name = "comfyui_http_api"
-description = "ComfyUI HTTP API nodes"
+description = "A collection of custom nodes for interacting with ComfyUI's internal HTTP APIs, such as fetching files from workflows."
 version = "0.0.1"
 license = {file = "LICENSE"}
 dependencies = []
@@ -10,6 +10,6 @@ Repository = "https://github.com/jtydhr88/ComfyUI-http-api"
 #  Used by Comfy Registry https://comfyregistry.org
 [tool.comfy]
 PublisherId = "jtydhr88"
-DisplayName = "ComfyUI HTTP Api"
+DisplayName = "ComfyUI HTTP API"
 Icon = ""
 includes = ['js']
